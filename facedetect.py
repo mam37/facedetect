@@ -22,8 +22,13 @@ with picamera.PiCamera() as camera:
 				flags = cv2.cv.CV_HAAR_SCALE_IMAGE
 			)
 			for(x,y,w,h) in faces:
-				cv2.rectangle(img, (x,y), (x+w, y+h), (0, 255,0), 2)
-
+				#draw green rectangle around face detected
+				#cv2.rectangle(img, (x,y), (x+w, y+h), (0, 255,0), 2)
+				#crop image
+				crop_img = img[y:y+h, x:x+w]
+				resized = cv2.resize(crop_img, (92, 112), interpolation=cv2.INTER_AREA)
+				cv2.imshow("cropped & resized", resized) 
+				cv2.waitKey(0)
 
 
 			cv2.imshow('frame', img)
