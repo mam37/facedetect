@@ -67,5 +67,5 @@ class face_id:
 				distances.append((dist, self.y[i]))
 
 			found_ID = min(distances)[1]
-			print "Identified (result: "+ str(found_ID) +" - dist - " + str(min(distances)[0])  + ")"
-
+			#print "Identified (result: "+ str(found_ID) +" - dist - " + str(min(distances)[0])  + ")"
+			return found_ID, min(distances)[0]
