@@ -31,7 +31,7 @@ with picamera.PiCamera() as camera:
 				# convert image to grayscale
 				resized = cv2.cvtColor(resized, cv2.COLOR_BGR2GRAY)
 				# equalize histogram
-				resized = cv2.equalizeHist(resized)
+				#resized = cv2.equalizeHist(resized)
 				cv2.imwrite("test_faces/test.pgm", resized) 
 				cv2.imshow("test_faces.pgm", resized) 
 				cv2.waitKey(0)
