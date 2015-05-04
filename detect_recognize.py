@@ -5,36 +5,26 @@ import picamera.array
 import sys
 import eigenface
 import atexit
+from grovepi import *
+import time
+import math
 atexit.register(stop)
 
 MIKE = 42
 JOSH = 41
+buzzer_pin = 2
+pinMode(buzzer_pin, "OUTPUT")
 
-def led_blink(s):
-	time_mult = 2
-	time_pause = 0.25
-	led_on(LED_R)
-	led_on(LED_L)
-	for i in range(s*time_mult):
-		led(LED_L, 255)
-		led(LED_R, 255)
-		time.sleep(time_pause)
-		led(LED_L, 0)
-		led(LED_R, 0)
-		time.sleep(time_pause)
-	led_off(LED_R)
-	led_off(LED_L)
-
-def led_pause(s):
-	led_on(LED_R)
-	led_on(LED_L)
-	led(LED_L, 255)
-	led(LED_R, 255)
-	time.sleep(s)
-	led(LED_L, 0)
-	led(LED_R, 0)
-	led_off(LED_R)
-	led_off(LED_L)
+def buzzme():
+	#buzzer_pin = 2
+	#pinMode(buzzer_pin, "OUTPUT")
+	try:
+		digitalWrite(buzzer_pin, 1)
+		time.sleep(0.25)
+		digitalWrite(buzzer_pin, 0)
+		time.sleep(0.25)
+	except KeyboardInterrupt:
+		digitalWrite(buzzer_pin, 0)
 
 # train for face detection
 cascpath = 'haarcascade_frontalface_alt.xml' 
@@ -80,11 +70,11 @@ with picamera.PiCamera() as camera:
 				#cv2.waitKey(0)
 				face, dist = recognizer.identify()
 				print "Face: " + str(face) + ", distance " + str(dist)
-				if face == MIKE:
-					led_blink(5) 
-				elif face == JOSH:
-					led_pause(5)
-
+				if face == "42":
+					buzzme()	
+				elif face == "41":
+					buzzme()	
+					buzzme()	
 			#cv2.imshow('frame', img)
 			#if cv2.waitKey(1) & 0xFF == ord('q'):
 			#	break
